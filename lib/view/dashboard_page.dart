@@ -117,6 +117,35 @@ class _HomePageState extends State<HomePage> {
                   'assets/images/jhumka1.jpg',
                 ]),
                 SizedBox(height: 20),
+                Center(
+                  child: GestureDetector(
+                    onTap: () {
+                      // TODO: Navigate to Explore All Page
+                      // Navigator.push(context, MaterialPageRoute(builder: (_) => ExploreAllPage()));
+                    },
+                    child: Row(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        Text(
+                          'Explore All',
+                          style: TextStyle(
+                            color: Colors.pinkAccent,
+                            fontSize: 16,
+                            decoration: TextDecoration.underline,
+                            fontWeight: FontWeight.w500,
+                          ),
+                        ),
+                        SizedBox(width: 5),
+                        Icon(
+                          Icons.arrow_forward,
+                          color: Colors.pinkAccent,
+                          size: 20,
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+                SizedBox(height: 20),
               ],
             ),
           ),
