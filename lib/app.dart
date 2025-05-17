@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:jewelme_application/view/dashboard_page.dart';
-import 'package:jewelme_application/view/login_page.dart';
-import 'package:jewelme_application/view/signup_page.dart';
+import 'package:jewelme_application/view/splashscreen.dart';
 
 class MyApp extends StatelessWidget{
   const MyApp({super.key});
@@ -9,7 +7,7 @@ class MyApp extends StatelessWidget{
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      home: HomePage(),
+      home: SplashScreen(),
     );
   }
 }

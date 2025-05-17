@@ -1,4 +1,6 @@
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:jewelme_application/view/signup_page.dart';
 
 class LoginPage extends StatefulWidget {
   @override
@@ -19,32 +21,23 @@ class _LoginPageState extends State<LoginPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Color(0xFFFFFCF4), 
+      backgroundColor: Color(0xFFFFFCF4),
       body: Center(
         child: SingleChildScrollView(
           padding: EdgeInsets.symmetric(horizontal: 30, vertical: 50),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-                 Image.asset(
-                  'assets/images/logo.png',
-                  height: 100,
-                ),
-                SizedBox(height: 45),
+              Image.asset('assets/images/logo.png', height: 100),
+              SizedBox(height: 45),
               Text(
                 "Welcome Back!",
-                style: TextStyle(
-                  fontSize: 28,
-                  fontWeight: FontWeight.bold,
-                ),
+                style: TextStyle(fontSize: 28, fontWeight: FontWeight.bold),
               ),
               SizedBox(height: 10),
               Text(
                 "Enter your email and password",
-                style: TextStyle(
-                  fontSize: 16,
-                  color: Colors.grey[700],
-                ),
+                style: TextStyle(fontSize: 16, color: Colors.grey[700]),
               ),
               SizedBox(height: 110),
 
@@ -56,7 +49,10 @@ class _LoginPageState extends State<LoginPage> {
                   prefixIcon: Icon(Icons.email_outlined),
                   filled: true,
                   fillColor: Color(0xFFEFEDEB),
-                   contentPadding: EdgeInsets.symmetric(vertical: 22, horizontal: 16),
+                  contentPadding: EdgeInsets.symmetric(
+                    vertical: 22,
+                    horizontal: 16,
+                  ),
                   border: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(15),
                     borderSide: BorderSide.none,
@@ -82,7 +78,10 @@ class _LoginPageState extends State<LoginPage> {
                   ),
                   filled: true,
                   fillColor: Color(0xFFEFEDEB),
-                   contentPadding: EdgeInsets.symmetric(vertical: 22, horizontal: 16),
+                  contentPadding: EdgeInsets.symmetric(
+                    vertical: 22,
+                    horizontal: 16,
+                  ),
                   border: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(15),
                     borderSide: BorderSide.none,
@@ -139,7 +138,7 @@ class _LoginPageState extends State<LoginPage> {
                   Expanded(child: Divider()),
                   Padding(
                     padding: EdgeInsets.symmetric(horizontal: 8),
-                    child: Text("or",style: TextStyle(fontSize: 18),),
+                    child: Text("or", style: TextStyle(fontSize: 18)),
                   ),
                   Expanded(child: Divider()),
                 ],
@@ -150,21 +149,29 @@ class _LoginPageState extends State<LoginPage> {
               RichText(
                 text: TextSpan(
                   text: "Don't have an account? ",
-                  style: TextStyle(
-                    color: Colors.black,
-                    fontSize: 16,
-                  ),
+                  style: TextStyle(color: Colors.black, fontSize: 16),
                   children: [
                     TextSpan(
                       text: 'Sign Up',
                       style: TextStyle(
+                        fontSize: 18,
                         color: Color(0xFFE04B4B),
                         fontWeight: FontWeight.w500,
                       ),
-                    )
+                      recognizer:
+                          TapGestureRecognizer()
+                            ..onTap = () {
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) => SignUpScreen(),
+                                ),
+                              );
+                            },
+                    ),
                   ],
                 ),
-              )
+              ),
             ],
           ),
         ),

@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:jewelme_application/view/dashboard_page.dart';
+import 'package:jewelme_application/view/login_page.dart';
 
 class SignUpScreen extends StatefulWidget {
   @override
-  _SignUpScreenState createState() => _SignUpScreenState();
+  SignUpScreenState createState() => SignUpScreenState();
 }
 
-class _SignUpScreenState extends State<SignUpScreen> {
+class SignUpScreenState extends State<SignUpScreen> {
   final TextEditingController _nameController = TextEditingController();
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
@@ -128,6 +130,10 @@ class _SignUpScreenState extends State<SignUpScreen> {
                     width: double.infinity,
                     child: ElevatedButton(
                       onPressed: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(builder: (context) => HomePage()),
+                        );
                         // Handle login logic
                       },
                       style: ElevatedButton.styleFrom(
@@ -172,12 +178,18 @@ class _SignUpScreenState extends State<SignUpScreen> {
                       ),
                       GestureDetector(
                         onTap: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => LoginPage(),
+                            ),
+                          );
                           // Navigate to login
                         },
                         child: const Text(
                           "Log In",
                           style: TextStyle(
-                            fontSize: 18,
+                            fontSize: 19,
                             color: Color(0xFFD9534F),
                             fontWeight: FontWeight.w500,
                           ),

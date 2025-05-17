@@ -1,20 +1,19 @@
 import 'dart:async';
-
 import 'package:flutter/material.dart';
 import 'package:jewelme_application/view/login_page.dart';
 
 class SplashScreen extends StatefulWidget {
   @override
-  _SplashScreenState createState() => _SplashScreenState();
+  SplashScreenState createState() => SplashScreenState();
 }
 
-class _SplashScreenState extends State<SplashScreen> {
+class SplashScreenState extends State<SplashScreen> {
   @override
   void initState() {
     super.initState();
 
     // Navigate to LoginPage after 3 seconds
-    Timer(Duration(seconds: 3), () {
+    Timer(Duration(seconds: 5), () {
       Navigator.of(context).pushReplacement(
         MaterialPageRoute(builder: (_) => LoginPage()),
       );
@@ -30,18 +29,10 @@ class _SplashScreenState extends State<SplashScreen> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Image.asset(
-              'assets/images/splash.png', 
-              width: 250,
+              'assets/images/splashsc.png', 
+              width: 300,
             ),
             SizedBox(height: 20),
-            Text(
-              'Discover Timeless Elegance',
-              style: TextStyle(
-                fontSize: 18,
-                fontWeight: FontWeight.bold,
-                color: Colors.black87,
-              ),
-            ),
           ],
         ),
       ),
