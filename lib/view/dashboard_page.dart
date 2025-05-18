@@ -20,7 +20,7 @@ class _HomePageState extends State<HomePage> {
         },
         backgroundColor: Color(0xFFFFFCF4),
         type: BottomNavigationBarType.fixed,
-        selectedItemColor: Colors.pinkAccent,
+        selectedItemColor:  Color(0xFFD9534F),
         unselectedItemColor: Colors.grey,
         items: [
           BottomNavigationBarItem(icon: Icon(Icons.home), label: ''),
@@ -51,7 +51,7 @@ class _HomePageState extends State<HomePage> {
                         fontWeight: FontWeight.bold,
                       ),
                     ),
-                    Icon(Icons.notifications_none, color: Colors.pinkAccent),
+                    Icon(Icons.notifications_none, color: Color(0xFFD9534F),),
                   ],
                 ),
                 SizedBox(height: 20),
@@ -131,16 +131,15 @@ class _HomePageState extends State<HomePage> {
                         Text(
                           'Explore All',
                           style: TextStyle(
-                            color: Colors.pinkAccent,
-                            fontSize: 16,
-                            decoration: TextDecoration.underline,
+                            color:  Color(0xFFD9534F),
+                            fontSize: 17,
                             fontWeight: FontWeight.w500,
                           ),
                         ),
                         SizedBox(width: 5),
                         Icon(
                           Icons.arrow_forward,
-                          color: Colors.pinkAccent,
+                          color:  Color(0xFFD9534F),
                           size: 20,
                         ),
                       ],
@@ -187,7 +186,7 @@ class _HomePageState extends State<HomePage> {
             child: Text(
               title,
               style: TextStyle(
-                color: Colors.pinkAccent,
+                color:  Color(0xFFD9534F),
                 fontWeight: FontWeight.bold,
                 fontSize: 14,
               ),
