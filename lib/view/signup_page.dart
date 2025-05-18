@@ -226,7 +226,7 @@ class CustomInputField extends StatelessWidget {
       controller: controller,
       decoration: InputDecoration(
         prefixIcon: Icon(icon, color: Colors.grey[600]),
-        hintText: hintText,
+        // hintText: hintText,
         filled: true,
         fillColor: const Color(0xFFF2EEEA),
         contentPadding: const EdgeInsets.symmetric(vertical: 18.0),
