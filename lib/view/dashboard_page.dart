@@ -109,18 +109,20 @@ class _HomePageState extends State<HomePage> {
                   'assets/images/heart.png',
                   'assets/images/dia.jpg',
                   'assets/images/necklace1.jpg',
+                  'assets/images/waist.png',
                 ]),
                 SizedBox(height: 10),
                 _buildProductSection("Flash Sale Upto 70% off ", [
                   'assets/images/jhumka.png',
                   'assets/images/waist.png',
                   'assets/images/jhumka1.jpg',
+                  'assets/images/earing1.jpg',
+                  'assets/images/dia.jpg',
                 ]),
                 SizedBox(height: 20),
                 Center(
                   child: GestureDetector(
                     onTap: () {
-                      // TODO: Navigate to Explore All Page
                       // Navigator.push(context, MaterialPageRoute(builder: (_) => ExploreAllPage()));
                     },
                     child: Row(
