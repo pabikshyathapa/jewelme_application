@@ -113,26 +113,26 @@ class _LoginPageState extends State<LoginPage> {
                   onPressed: () {
                     // Handle login logic
                   },
-                  style: ElevatedButton.styleFrom(
-                    padding: EdgeInsets.symmetric(vertical: 17),
-                    backgroundColor: Color(0xFFE04B4B),
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(30),
-                    ),
-                  ),
+                  // style: ElevatedButton.styleFrom(
+                  //   padding: EdgeInsets.symmetric(vertical: 17),
+                  //   backgroundColor: Color(0xFFE04B4B),
+                  //   shape: RoundedRectangleBorder(
+                  //     borderRadius: BorderRadius.circular(30),
+                  //   ),
+                  // ),
                   child: Text(
                     'Log In',
-                    style: TextStyle(
-                      fontSize: 19,
-                      color: Colors.white,
-                      letterSpacing: 1,
-                    ),
+                    // style: TextStyle(
+                    //   fontSize: 19,
+                    //   color: Colors.white,
+                    //   letterSpacing: 1,
+                    // ),
                   ),
                 ),
               ),
               SizedBox(height: 20),
 
-              // OR Divider
+              // OR 
               Row(
                 children: [
                   Expanded(child: Divider()),

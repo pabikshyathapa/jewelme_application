@@ -132,24 +132,24 @@ class SignUpScreenState extends State<SignUpScreen> {
                       onPressed: () {
                         Navigator.push(
                           context,
-                          MaterialPageRoute(builder: (context) => HomePage()),
+                          MaterialPageRoute(builder: (context) => DashboardPage()),
                         );
                         // Handle login logic
                       },
-                      style: ElevatedButton.styleFrom(
-                        padding: EdgeInsets.symmetric(vertical: 17),
-                        backgroundColor: Color(0xFFE04B4B),
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(30),
-                        ),
-                      ),
+                      // style: ElevatedButton.styleFrom(
+                      //   padding: EdgeInsets.symmetric(vertical: 17),
+                      //   backgroundColor: Color(0xFFE04B4B),
+                      //   shape: RoundedRectangleBorder(
+                      //     borderRadius: BorderRadius.circular(30),
+                      //   ),
+                      // ),
                       child: Text(
                         'Sign Up',
-                        style: TextStyle(
-                          fontSize: 19,
-                          color: Colors.white,
-                          letterSpacing: 1,
-                        ),
+                        // style: TextStyle(
+                        //   fontSize: 19,
+                        //   color: Colors.white,
+                        //   letterSpacing: 1,
+                        // ),
                       ),
                     ),
                   ),
