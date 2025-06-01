@@ -45,8 +45,7 @@ class DashboardPageState extends State<DashboardPage> {
           BottomNavigationBarItem(icon: Icon(Icons.shopping_cart_outlined),label: '',),
           BottomNavigationBarItem(icon: Icon(Icons.person_outline), label: ''),
         ],
-      ),
+    ),
     );
-  
   }
 }
