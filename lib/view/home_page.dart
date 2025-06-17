@@ -16,10 +16,10 @@ Widget build(BuildContext context) {
   elevation: 0,
   centerTitle: false,
   automaticallyImplyLeading: false,
-  titleSpacing: 0, // Removes default spacing from the start
+  titleSpacing: 0, 
   title: Row(
     children: [
-      SizedBox(width: 8), // Optional small left padding
+      SizedBox(width: 8), 
       Text(
         'Home',
         style: TextStyle(

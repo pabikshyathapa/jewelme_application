@@ -30,7 +30,7 @@ ThemeData getApplicationTheme(){
       elevation: 4,
       shadowColor: Colors.black,
       titleTextStyle: TextStyle(
-        fontFamily: 'Poppins Regular',
+        fontFamily: 'Poppins Bold',
         fontSize: 20,
         color: Colors.black,
         fontWeight: FontWeight.bold,
