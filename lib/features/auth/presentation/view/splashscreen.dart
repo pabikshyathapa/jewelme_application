@@ -1,6 +1,6 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
-import 'package:jewelme_application/view/login_page.dart';
+import 'package:jewelme_application/features/auth/presentation/view/login_page.dart';
 
 class SplashScreen extends StatefulWidget {
   @override
