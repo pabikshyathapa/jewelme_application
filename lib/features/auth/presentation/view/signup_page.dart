@@ -185,7 +185,6 @@ class SignUpScreenState extends State<SignUpScreen> {
       ),
     );
   }
-
   Widget _buildPasswordField() {
     return TextFormField(
       controller: _passwordController,
