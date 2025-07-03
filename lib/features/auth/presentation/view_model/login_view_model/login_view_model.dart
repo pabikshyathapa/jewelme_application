@@ -63,11 +63,15 @@ class LoginViewModel extends Bloc<LoginEvent, LoginState> {
           message: "Login Successful",
           color: Colors.green,
         );
-       
+        Navigator.pushReplacement(
+          event.context,
+          MaterialPageRoute(
+            builder: (_) => DashboardPage(),
+          ),
+        );
         // Optional: Navigate to Home after login
         // add(NavigateToHomeViewEvent(context: event.context));
       },
     );
   }
-
 }
