@@ -28,11 +28,11 @@ class HiveService {
     var box = await Hive.openBox<UserHiveModel>(
       HiveTableConstant.userBox,
     );
-    var student = box.values.firstWhere(
+    var user = box.values.firstWhere(
       (element) => element.email == email && element.password == password,
       orElse: () => throw Exception('Invalid username or password'),
     );
     box.close();
-    return student;
+    return user;
   }
 }

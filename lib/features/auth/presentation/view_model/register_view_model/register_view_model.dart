@@ -5,46 +5,55 @@ import 'package:jewelme_application/features/auth/domain/use_case/user_register_
 import 'package:jewelme_application/features/auth/presentation/view_model/register_view_model/register_event.dart';
 import 'package:jewelme_application/features/auth/presentation/view_model/register_view_model/register_state.dart';
 
-class RegisterViewModel extends Bloc<RegisterEvent,RegisterState>{
+class RegisterViewModel  extends Bloc<RegisterEvent, RegisterState>{
   final UserRegisterUsecase _registerUsecase;
-
+  
   RegisterViewModel({
-  required UserRegisterUsecase registerUsecase,
+    required UserRegisterUsecase registerUsecase,
 
-} ): _registerUsecase = registerUsecase,
-    super(RegisterState.initial()){
-    on<RegisterUserEvent>(_onRegisterUser);
+
+  }) : _registerUsecase = registerUsecase,
+  super(RegisterState.initial()){
+    on<RegisterUserEvent>(_registerUserEvent);
   }
 
-  Future<void> _onRegisterUser(   
+  Future<void> _registerUserEvent(
     RegisterUserEvent event,
     Emitter<RegisterState> emit,
   )async{
     emit(state.copyWith(isLoading: true));
-
-    final result=await _registerUsecase(
+    final result = await _registerUsecase(
       RegisterUseParams(
-        fullname:event.fullname,
-         email:event.email, 
-         phone: event.phone,
-          password: event.password),
+      name: event.name,
+      email : event.email,
+      phone: event.phone,
+      password: event.password,
+
+      )
     );
-     result.fold(
-      (l) {
+
+    result.fold(
+      (failure){
         emit(state.copyWith(isLoading: false, isSuccess: false));
         showMySnackBar(
           context: event.context,
-          message: l.message,
+          message: 'Failed to register : ${failure.message}',
           color: Colors.red,
+
         );
       },
-      (r) {
+      
+
+      (success) {
         emit(state.copyWith(isLoading: false, isSuccess: true));
         showMySnackBar(
           context: event.context,
-          message: "Registration Successful",
+          message: ' Registered successful!',
+
         );
+
       },
     );
+    
   }
-  }
+}

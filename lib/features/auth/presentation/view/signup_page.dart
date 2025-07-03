@@ -39,7 +39,7 @@ class SignUpScreenState extends State<SignUpScreen> {
       context.read<RegisterViewModel>().add(
         RegisterUserEvent(
           context: context,
-          fullname: _nameController.text,
+          name: _nameController.text,
           email: _emailController.text,
           phone: _phoneNumberController.text,
           password: _passwordController.text,

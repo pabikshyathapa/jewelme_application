@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:jewelme_application/app/service_locator/service_locator.dart';
 import 'package:jewelme_application/core/common/snackbar/my_snack_bar.dart';
 import 'package:jewelme_application/features/auth/domain/use_case/user_login_usecase.dart';
+import 'package:jewelme_application/features/auth/presentation/view/dashboard_page.dart';
 import 'package:jewelme_application/features/auth/presentation/view/signup_page.dart';
 import 'package:jewelme_application/features/auth/presentation/view_model/login_view_model/login_event.dart';
 import 'package:jewelme_application/features/auth/presentation/view_model/login_view_model/login_state.dart';
@@ -61,6 +62,12 @@ class LoginViewModel extends Bloc<LoginEvent, LoginState> {
           context: event.context,
           message: "Login Successful",
           color: Colors.green,
+        );
+        Navigator.pushReplacement(
+          event.context,
+          MaterialPageRoute(
+            builder: (_) => DashboardPage(),
+          ),
         );
 
         // Optional: Navigate to Home after login

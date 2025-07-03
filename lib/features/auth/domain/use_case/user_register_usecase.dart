@@ -6,20 +6,20 @@ import 'package:jewelme_application/features/auth/domain/entity/user_entity.dart
 import 'package:jewelme_application/features/auth/domain/repository/user_repository.dart';
 
 class RegisterUseParams extends Equatable{
-  final String fullname;
+  final String name;
   final String email;
   final String phone;
   final String password;
 
   const RegisterUseParams({
-    required this.fullname,
+    required this.name,
     required this.email,
     required this.phone,
     required this.password,
   });
     //initial constructer
     const RegisterUseParams.initial({
-      required this.fullname,
+      required this.name,
       required this.email,
       required this.phone,
       required this.password
@@ -27,7 +27,7 @@ class RegisterUseParams extends Equatable{
   
   @override
   List<Object?> get props => [
-    fullname,
+    name,
     email,
     phone,
     password,
@@ -43,7 +43,7 @@ class UserRegisterUsecase implements UsecaseWithParams<void,RegisterUseParams>{
   Future<Either<Failure, void>> call(RegisterUseParams params) {
       
     final userEntity=UserEntity(
-      fullname: params.fullname,
+      name: params.name,
      email:params.email,
       phone:params.phone, 
       password:params.password,

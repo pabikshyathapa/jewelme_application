@@ -5,14 +5,14 @@ sealed class RegisterEvent {}
 
 class RegisterUserEvent extends RegisterEvent{
   final BuildContext context;
-  final String fullname;
+  final String name;
   final String email;
   final String phone;
   final String password;
 
   RegisterUserEvent({
     required this.context,
-    required this.fullname,
+    required this.name,
     required this.email,
     required this.phone,
     required this.password,
