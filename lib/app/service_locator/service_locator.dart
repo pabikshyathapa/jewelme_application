@@ -75,4 +75,5 @@ Future<void> _initAuthModule() async {
   serviceLocator.registerFactory(
     () => LoginViewModel(serviceLocator<UserLoginUsecase>()),
   );
+  
 }
