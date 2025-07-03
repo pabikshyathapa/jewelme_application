@@ -25,6 +25,7 @@ Future<void> _initHiveService() async {
 Future<void> _initApiModule() async {
   // Dio instance
   serviceLocator.registerLazySingleton<Dio>(() => Dio());
+  // Register ApiService with Dio injected
   serviceLocator.registerLazySingleton(() => ApiService(serviceLocator<Dio>()));
 }
 
