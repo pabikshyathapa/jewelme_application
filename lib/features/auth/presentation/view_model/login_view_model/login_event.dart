@@ -26,3 +26,16 @@ class LoginWithEmailAndPasswordEvent extends LoginEvent {
     required this.password,
   });
 }
+
+// class LoginWithEmailAndPasswordEvent extends LoginEvent {
+//   final String email;
+//   final String password;
+//   final BuildContext? context; // Make it optional
+
+//   LoginWithEmailAndPasswordEvent({
+//     required this.email,
+//     required this.password,
+//     this.context,
+//   });
+// }
+
