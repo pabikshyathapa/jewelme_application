@@ -26,7 +26,6 @@ void main() {
 
     // Act
     final result = await usecase(params);
-
     // Assert
     expect(result, const Right<Failure, String>(expectedToken));
     verify(() => repository.loginUser(params.email, params.password)).called(1);

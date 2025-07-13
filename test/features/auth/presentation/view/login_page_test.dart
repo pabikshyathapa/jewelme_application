@@ -70,8 +70,6 @@ testWidgets('Check for the validator error', (tester) async {
   expect(find.text('Please enter your password'), findsOneWidget);
 });
 
-
-
   testWidgets('Login success', (tester) async {
   // Arrange - Mock the state
   when(() => loginViewModel.state).thenReturn(
