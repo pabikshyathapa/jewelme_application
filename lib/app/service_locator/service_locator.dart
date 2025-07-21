@@ -10,6 +10,14 @@ import 'package:jewelme_application/features/auth/domain/use_case/user_login_use
 import 'package:jewelme_application/features/auth/domain/use_case/user_register_usecase.dart';
 import 'package:jewelme_application/features/auth/presentation/view_model/login_view_model/login_view_model.dart';
 import 'package:jewelme_application/features/auth/presentation/view_model/register_view_model/register_view_model.dart';
+import 'package:jewelme_application/features/home/data/data_source/remote_datasource/product_remote_datesource.dart';
+import 'package:jewelme_application/features/home/data/repository/remote_repository/product_remote_repository.dart';
+import 'package:jewelme_application/features/home/domain/repository/product_repository.dart';
+import 'package:jewelme_application/features/home/domain/use_case/delete_usecase.dart';
+import 'package:jewelme_application/features/home/domain/use_case/fetchall_usecase.dart';
+import 'package:jewelme_application/features/home/domain/use_case/product_usecase.dart';
+import 'package:jewelme_application/features/home/domain/use_case/update_usecase.dart';
+import 'package:jewelme_application/features/home/presentation/view_model/product_view_model.dart';
 
 final serviceLocator = GetIt.instance;
 
@@ -17,6 +25,8 @@ Future<void> initDependencies() async {
   await _initHiveService();
   await _initApiModule();
   await _initAuthModule();
+  await _initProductModule(); 
+
 }
 Future<void> _initHiveService() async {
   serviceLocator.registerLazySingleton<HiveService>(() => HiveService());
@@ -34,6 +44,8 @@ Future<void> _initAuthModule() async {
   serviceLocator.registerFactory(
     () => UserLocalDatasource(hiveservice: serviceLocator<HiveService>()),
   );
+
+  
 
   serviceLocator.registerFactory(
     () => UserRemoteDatasource(apiService: serviceLocator<ApiService>()),
@@ -74,5 +86,58 @@ Future<void> _initAuthModule() async {
 
   serviceLocator.registerFactory(
     () => LoginViewModel(serviceLocator<UserLoginUsecase>()),
+  );
+}
+
+Future<void> _initProductModule() async {
+  // Data Sources
+  // serviceLocator.registerFactory(
+  //   () => ProductLocalDatasource(hiveService: serviceLocator<HiveService>()),
+  // );
+
+  serviceLocator.registerFactory(
+    () => ProductRemoteDatasource(apiService: serviceLocator<ApiService>()),
+  );
+
+  // Repository
+  serviceLocator.registerFactory<IProductRepository>(
+    () => ProductRemoteRepository(
+      productRemoteDatasource: serviceLocator<ProductRemoteDatasource>(),
+    ),
+  );
+
+  // Use Cases
+  serviceLocator.registerFactory(
+    () => AddProductUsecase(
+      productRepository: serviceLocator<IProductRepository>(),
+    ),
+  );
+
+  serviceLocator.registerFactory(
+    () => UpdateProductUsecase(
+      productRepository: serviceLocator<IProductRepository>(),
+    ),
+  );
+
+  serviceLocator.registerFactory(
+    () => DeleteProductUsecase(
+      productRepository: serviceLocator<IProductRepository>(),
+    ),
+  );
+
+  serviceLocator.registerFactory(
+    () => FetchAllProductsUsecase(
+      productRepository: serviceLocator<IProductRepository>(),
+    ),
+  );
+
+  // ViewModels
+  serviceLocator.registerFactory(
+    () => ProductViewModel(
+      addProductUsecase: serviceLocator<AddProductUsecase>(),
+      updateProductUsecase: serviceLocator<UpdateProductUsecase>(),
+      deleteProductUsecase: serviceLocator<DeleteProductUsecase>(),
+      fetchAllProductsUsecase: serviceLocator<FetchAllProductsUsecase>(),
+    ),
   );
 }

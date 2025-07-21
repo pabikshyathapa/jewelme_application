@@ -13,6 +13,6 @@ class UserGetCurrentUserUsecase implements UsecaseWithoutParams<UserEntity> {
   @override
   Future<Either<Failure, UserEntity>> call() {
     return _iuserRepository.getCurrentUser();
-  }
+  } 
   
 } 

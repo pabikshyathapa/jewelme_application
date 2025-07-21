@@ -20,4 +20,13 @@ class ApiEndpoints {
   static const String getAllUser = "/getAllUsers";
   static const String updateUser = "/updateUser/";
   static const String deleteUser = "/deleteUser/";
+
+   // Product URLs
+ static const String productBaseUrl = "$serverAddress/api/admin/product";
+
+static const String createProduct = "$productBaseUrl"; // POST to /api/admin/product
+static const String getAllProducts = "$productBaseUrl"; // GET to /api/admin/product
+static String getProductById(String id) => "$productBaseUrl/$id"; // GET to /api/admin/product/:id
+static String updateProduct(String id) => "$productBaseUrl/$id"; // PUT to /api/admin/product/:id
+static String deleteProduct(String id) => "$productBaseUrl/$id"; // DELETE to /api/admin/product/:id
 }
