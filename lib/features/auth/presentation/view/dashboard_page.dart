@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:jewelme_application/features/auth/presentation/view/Explore_page.dart';
-import 'package:jewelme_application/features/auth/presentation/view/cart_page.dart';
+import 'package:jewelme_application/features/cart/presentation/view/cart_page.dart';
 import 'package:jewelme_application/features/home/presentation/view/home_page.dart';
 import 'package:jewelme_application/features/auth/presentation/view/profile_page.dart';
 import 'package:jewelme_application/features/auth/presentation/view/wishlist_page.dart';
@@ -17,8 +17,8 @@ class DashboardPageState extends State<DashboardPage> {
   List<Widget> listBottomScreen=[
     const HomeViewPage(),
     const ExplorePage(),
+    const CartViewPage(),
     const WishlistPage(),
-    const CartPage(),
     const ProfilePage(),
   ];
 

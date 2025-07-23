@@ -29,4 +29,12 @@ static const String getAllProducts = "$productBaseUrl"; // GET to /api/admin/pro
 static String getProductById(String id) => "$productBaseUrl/$id"; // GET to /api/admin/product/:id
 static String updateProduct(String id) => "$productBaseUrl/$id"; // PUT to /api/admin/product/:id
 static String deleteProduct(String id) => "$productBaseUrl/$id"; // DELETE to /api/admin/product/:id
+
+ static const String cartBaseUrl = "$serverAddress/api/cart";
+  static const String addToCart= "$cartBaseUrl/add";
+  static const String getCartByUser = "$cartBaseUrl";
+  static const String updateCartItem = "$cartBaseUrl/update";
+  static const String removeCartItem = "$cartBaseUrl/remove";
+  static const String clearCart = "$cartBaseUrl/clear";
+  static const String getAllCartItems = "$cartBaseUrl/all";
 }

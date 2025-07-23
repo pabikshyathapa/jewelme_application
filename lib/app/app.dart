@@ -8,6 +8,7 @@ import 'package:jewelme_application/features/auth/presentation/view/signup_page.
 import 'package:jewelme_application/features/auth/presentation/view/splashscreen.dart';
 import 'package:jewelme_application/features/auth/presentation/view_model/login_view_model/login_view_model.dart';
 import 'package:jewelme_application/features/auth/presentation/view_model/register_view_model/register_view_model.dart';
+import 'package:jewelme_application/features/cart/presentation/view_model/cart_view_model.dart';
 import 'package:jewelme_application/features/home/presentation/view/home_page.dart';
 import 'package:jewelme_application/features/home/presentation/view_model/product_view_model.dart';
 
@@ -27,12 +28,15 @@ class MyApp extends StatelessWidget{
     BlocProvider<ProductViewModel>(
       create: (_) => serviceLocator<ProductViewModel>(),
     ),
+    BlocProvider<CartViewModel>(
+      create: (_) => serviceLocator<CartViewModel>(),
+    ),
   ],
       child: MaterialApp(
         // title: 'Student Management',
         debugShowCheckedModeBanner: false,
         theme: getApplicationTheme(),
-        home: DashboardPage(), // or your LoginPage
+        home: LoginPage(), // or your LoginPage
       ),
     );
   }

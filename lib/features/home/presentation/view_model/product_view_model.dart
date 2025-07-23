@@ -1,6 +1,5 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter/material.dart';
-import 'package:jewelme_application/features/home/domain/entity/product_entity.dart';
 import 'package:jewelme_application/features/home/domain/use_case/delete_usecase.dart';
 import 'package:jewelme_application/features/home/domain/use_case/fetchall_usecase.dart';
 import 'package:jewelme_application/features/home/domain/use_case/product_usecase.dart';

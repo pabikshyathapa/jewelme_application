@@ -22,7 +22,7 @@ class ProductEntity extends Equatable {
     this.description,
     this.stock,
     this.createdAt,
-    this.updatedAt,
+    this.updatedAt, 
   });
 
   @override
@@ -44,7 +44,7 @@ class ProductEntity extends Equatable {
       name: '',
       price: 0.0,
       categoryId: '',
-      sellerId: '',
+      sellerId: '', 
     );
   }
 }

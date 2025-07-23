@@ -88,7 +88,7 @@ class ProductHiveModel extends Equatable {
       description: description,
       stock: stock,
       createdAt: createdAt,
-      updatedAt: updatedAt,
+      updatedAt: updatedAt, 
     );
   }
   

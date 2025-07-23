@@ -1,6 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:jewelme_application/core/common/snackbar/my_snack_bar.dart';
 import 'package:jewelme_application/core/utils/getimage.dart';
+import 'package:jewelme_application/core/utils/user_session.dart';
+import 'package:jewelme_application/features/cart/presentation/view_model/cart_event.dart';
+import 'package:jewelme_application/features/cart/presentation/view_model/cart_view_model.dart';
 import 'package:jewelme_application/features/home/presentation/view/product_detailpage.dart';
 import 'package:jewelme_application/features/home/presentation/view_model/product_event.dart';
 import 'package:jewelme_application/features/home/presentation/view_model/product_state.dart';
@@ -60,7 +64,10 @@ class _HomeViewPageState extends State<HomeViewPage> {
             children: [
               Expanded(
                 child: GridView.builder(
-                  padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 10),
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 16,
+                    vertical: 10,
+                  ),
                   gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                     crossAxisCount: 2,
                     crossAxisSpacing: 12,
@@ -84,7 +91,10 @@ class _HomeViewPageState extends State<HomeViewPage> {
                                   Navigator.push(
                                     context,
                                     MaterialPageRoute(
-                                      builder: (_) => ProductDetailPage(product: product),
+                                      builder:
+                                          (_) => ProductDetailPage(
+                                            product: product,
+                                          ),
                                     ),
                                   );
                                 },
@@ -92,23 +102,38 @@ class _HomeViewPageState extends State<HomeViewPage> {
                                   borderRadius: const BorderRadius.vertical(
                                     top: Radius.circular(15),
                                   ),
-                                  child: (product.filepath != null && product.filepath!.isNotEmpty)
-                                      ? Image.network(
-                                          getBackendImageUrl(product.filepath!),
-                                          width: double.infinity,
-                                          height: 140,
-                                          fit: BoxFit.cover,
-                                          errorBuilder: (context, error, stackTrace) =>
-                                              const Icon(Icons.image_not_supported, size: 80),
-                                        )
-                                      : const Icon(Icons.image_not_supported, size: 80),
+                                  child:
+                                      (product.filepath != null &&
+                                              product.filepath!.isNotEmpty)
+                                          ? Image.network(
+                                            getBackendImageUrl(
+                                              product.filepath!,
+                                            ),
+                                            width: double.infinity,
+                                            height: 140,
+                                            fit: BoxFit.cover,
+                                            errorBuilder:
+                                                (context, error, stackTrace) =>
+                                                    const Icon(
+                                                      Icons.image_not_supported,
+                                                      size: 80,
+                                                    ),
+                                          )
+                                          : const Icon(
+                                            Icons.image_not_supported,
+                                            size: 80,
+                                          ),
                                 ),
                               ),
                               Positioned(
                                 top: 5,
                                 right: 5,
                                 child: IconButton(
-                                  icon: const Icon(Icons.favorite_border, color: Colors.white, size: 20),
+                                  icon: const Icon(
+                                    Icons.favorite_border,
+                                    color: Colors.white,
+                                    size: 20,
+                                  ),
                                   onPressed: () {
                                     // TODO: Add to wishlist
                                   },
@@ -123,14 +148,20 @@ class _HomeViewPageState extends State<HomeViewPage> {
                               children: [
                                 Text(
                                   product.name,
-                                  style: const TextStyle(fontSize: 14, fontWeight: FontWeight.bold),
+                                  style: const TextStyle(
+                                    fontSize: 14,
+                                    fontWeight: FontWeight.bold,
+                                  ),
                                   maxLines: 1,
                                   overflow: TextOverflow.ellipsis,
                                 ),
                                 const SizedBox(height: 4),
                                 Text(
                                   "Rs. ${product.price}",
-                                  style: const TextStyle(fontSize: 13, color: Colors.grey),
+                                  style: const TextStyle(
+                                    fontSize: 13,
+                                    color: Colors.grey,
+                                  ),
                                 ),
                                 const SizedBox(height: 4),
                                 Text(
@@ -142,10 +173,31 @@ class _HomeViewPageState extends State<HomeViewPage> {
                                 Align(
                                   alignment: Alignment.centerRight,
                                   child: IconButton(
-                                    icon: const Icon(Icons.shopping_cart_outlined),
+                                    icon: const Icon(
+                                      Icons.shopping_cart_outlined,
+                                    ),
                                     iconSize: 20,
                                     onPressed: () {
-                                      // TODO: Add to cart logic
+                                      final currentUserId =
+                                          UserSession.instance.userId;
+
+                                      if (currentUserId != null) {
+                                        context.read<CartViewModel>().add(
+                                          AddToCartEvent(
+                                            context: context,
+                                            userId: currentUserId,
+                                            product: product,
+                                            quantity: 1,
+                                          ),
+                                        );
+                                      } else {
+                                        // Handle case where user is not logged in or userId is missing
+                                        showMySnackBar(
+                                          context: context,
+                                          message: "Please log in first",
+                                          color: Colors.red,
+                                        );
+                                      }
                                     },
                                   ),
                                 ),

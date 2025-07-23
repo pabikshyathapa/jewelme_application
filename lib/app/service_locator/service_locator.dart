@@ -10,6 +10,15 @@ import 'package:jewelme_application/features/auth/domain/use_case/user_login_use
 import 'package:jewelme_application/features/auth/domain/use_case/user_register_usecase.dart';
 import 'package:jewelme_application/features/auth/presentation/view_model/login_view_model/login_view_model.dart';
 import 'package:jewelme_application/features/auth/presentation/view_model/register_view_model/register_view_model.dart';
+import 'package:jewelme_application/features/cart/data/data_source/cart_data_source.dart';
+import 'package:jewelme_application/features/cart/data/data_source/remote_datasource/cart_remote_datasource.dart';
+import 'package:jewelme_application/features/cart/data/repository/remote_repository/cart_remote_repository.dart';
+import 'package:jewelme_application/features/cart/domain/repository/cart_repository.dart';
+import 'package:jewelme_application/features/cart/domain/use_case/addcart_usecase.dart';
+import 'package:jewelme_application/features/cart/domain/use_case/fetch_cart_usecase.dart';
+import 'package:jewelme_application/features/cart/domain/use_case/remove_cart_usecase.dart';
+import 'package:jewelme_application/features/cart/domain/use_case/update_cart_usecase.dart';
+import 'package:jewelme_application/features/cart/presentation/view_model/cart_view_model.dart';
 import 'package:jewelme_application/features/home/data/data_source/remote_datasource/product_remote_datesource.dart';
 import 'package:jewelme_application/features/home/data/repository/remote_repository/product_remote_repository.dart';
 import 'package:jewelme_application/features/home/domain/repository/product_repository.dart';
@@ -26,6 +35,8 @@ Future<void> initDependencies() async {
   await _initApiModule();
   await _initAuthModule();
   await _initProductModule(); 
+  await _initCartModule();  
+
 
 }
 Future<void> _initHiveService() async {
@@ -138,6 +149,54 @@ Future<void> _initProductModule() async {
       updateProductUsecase: serviceLocator<UpdateProductUsecase>(),
       deleteProductUsecase: serviceLocator<DeleteProductUsecase>(),
       fetchAllProductsUsecase: serviceLocator<FetchAllProductsUsecase>(),
+    ),
+  );
+}
+
+Future<void> _initCartModule() async {
+
+  serviceLocator.registerFactory<ICartDataSource>(
+    () => CartRemoteDatasource(apiService: serviceLocator<ApiService>()),
+  );
+
+  
+  serviceLocator.registerFactory<ICartRepository>(
+    () => CartRemoteRepository(
+      cartRemoteDatasource: serviceLocator<ICartDataSource>(),
+    ),
+  );
+
+ 
+  serviceLocator.registerFactory(
+    () => AddToCartUsecase(
+      cartRepository: serviceLocator<ICartRepository>(),
+    ),
+  );
+
+  serviceLocator.registerFactory(
+    () => RemoveCartItemUseCase(
+       serviceLocator<ICartRepository>(),
+    ),
+  );
+
+  serviceLocator.registerFactory(
+    () => UpdateCartQuantityUseCase(
+       serviceLocator<ICartRepository>(),
+    ),
+  );
+serviceLocator.registerFactory(
+    () => FetchCartUsecase(cartRepository: 
+       serviceLocator<ICartRepository>(),
+    ),
+  );
+
+
+  serviceLocator.registerLazySingleton(
+    () => CartViewModel(
+      addToCartUsecase: serviceLocator<AddToCartUsecase>(),
+      removeCartItemUsecase: serviceLocator<RemoveCartItemUseCase>(),
+      updateCartItemQuantityUsecase: serviceLocator<UpdateCartQuantityUseCase>(),
+       fetchCartUseCase: serviceLocator<FetchCartUsecase>(),
     ),
   );
 }
