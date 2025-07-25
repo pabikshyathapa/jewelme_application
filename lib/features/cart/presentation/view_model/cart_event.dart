@@ -55,3 +55,9 @@ class FetchCartEvent extends CartEvent {
     required this.context,
   });
 }
+class ClearCartEvent extends CartEvent {
+  final String userId;
+  final BuildContext context;
+
+  ClearCartEvent({required this.userId, required this.context});
+}

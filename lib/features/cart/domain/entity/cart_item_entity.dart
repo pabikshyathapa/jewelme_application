@@ -24,6 +24,22 @@ class CartItemEntity extends Equatable {
         filepath,
       ];
 
+     CartItemEntity copyWith({
+    String? productId,
+    String? name,
+    double? price,
+    int? quantity,
+    String? filepath,
+  }) {
+    return CartItemEntity(
+      productId: productId ?? this.productId,
+      name: name ?? this.name,
+      price: price ?? this.price,
+      quantity: quantity ?? this.quantity,
+      filepath: filepath ?? this.filepath,
+    );
+  }
+
   factory CartItemEntity.empty() {
     return const CartItemEntity(
       productId: '',
@@ -33,4 +49,5 @@ class CartItemEntity extends Equatable {
       filepath: '',
     );
   }
+  
 }

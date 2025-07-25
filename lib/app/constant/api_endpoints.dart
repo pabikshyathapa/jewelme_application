@@ -30,6 +30,7 @@ static String getProductById(String id) => "$productBaseUrl/$id"; // GET to /api
 static String updateProduct(String id) => "$productBaseUrl/$id"; // PUT to /api/admin/product/:id
 static String deleteProduct(String id) => "$productBaseUrl/$id"; // DELETE to /api/admin/product/:id
 
+//cart
  static const String cartBaseUrl = "$serverAddress/api/cart";
   static const String addToCart= "$cartBaseUrl/add";
   static const String getCartByUser = "$cartBaseUrl";
@@ -37,4 +38,22 @@ static String deleteProduct(String id) => "$productBaseUrl/$id"; // DELETE to /a
   static const String removeCartItem = "$cartBaseUrl/remove";
   static const String clearCart = "$cartBaseUrl/clear";
   static const String getAllCartItems = "$cartBaseUrl/all";
+
+//wishlist
+  static const String wishlistbaseUrl = "$serverAddress/api/wishlist";
+  static const String addToWishlist = "$wishlistbaseUrl/add";
+  static const String getWishlistByUser = "$wishlistbaseUrl";  
+  static const String removeFromWishlist = "$wishlistbaseUrl/remove";
+
+  //order
+  static const String orderbaseUrl = "$serverAddress/api/order" ;
+  static const String checkoutCart = "$orderbaseUrl/checkout";
+  static const String getOrdersByUser = "$orderbaseUrl";
+
+//users
+  static const String baseUser = '$serverAddress/api/admin/users';
+  static String getUserById(String userId) => '$baseUser/$userId';
+  static String updateUserById(String userId) => '$baseUser/$userId';
 }
+
+
