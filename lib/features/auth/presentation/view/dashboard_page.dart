@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:jewelme_application/features/auth/presentation/view/Explore_page.dart';
 import 'package:jewelme_application/features/cart/presentation/view/cart_page.dart';
 import 'package:jewelme_application/features/home/presentation/view/home_page.dart';
 import 'package:jewelme_application/features/profile/presenttaion/view/profile_page.dart';
@@ -16,7 +15,6 @@ class DashboardPageState extends State<DashboardPage> {
   int _selectedIndex = 0;
   List<Widget> listBottomScreen=[
     const HomeViewPage(),
-    // const ExplorePage(),
     const WishlistViewPage(),
     const CartViewPage(),
     const ProfilePage(),
@@ -40,7 +38,6 @@ class DashboardPageState extends State<DashboardPage> {
         
         items: [
           BottomNavigationBarItem(icon: Icon(Icons.home),label:''),
-          // BottomNavigationBarItem(icon: Icon(Icons.search), label: ''),
           BottomNavigationBarItem(icon: Icon(Icons.favorite_border), label: ''),
           BottomNavigationBarItem(icon: Icon(Icons.shopping_cart_outlined),label: '',),
           BottomNavigationBarItem(icon: Icon(Icons.person_outline), label: ''),

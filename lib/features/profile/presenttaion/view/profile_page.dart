@@ -174,6 +174,57 @@ class _ProfilePageState extends State<ProfilePage> {
     );
   }
 
+  Widget _buildLogoutButton() {
+    return Container(
+      decoration: BoxDecoration(
+        gradient: const LinearGradient(
+          colors: [Color(0xFFD9534F), Color(0xFFB02A37)],
+          begin: Alignment.topLeft,
+          end: Alignment.bottomRight,
+        ),
+        borderRadius: BorderRadius.circular(14),
+        boxShadow: [
+          BoxShadow(
+            color: Colors.black.withOpacity(0.2),
+            offset: const Offset(0, 6),
+            blurRadius: 10,
+          ),
+        ],
+      ),
+      child: TextButton.icon(
+        onPressed: () {
+          // UserSession.instance.clearSession();
+          Navigator.pushReplacement(
+            context,
+            MaterialPageRoute(
+              builder: (context) => const LoginPage(),
+            ),
+          );
+          showMySnackBar(
+            context: context,
+            message: "You've been logged out",
+            color: Colors.green,
+          );
+        },
+        icon: const Icon(Icons.logout, color: Colors.white),
+        label: const Text(
+          'Logout',
+          style: TextStyle(
+            color: Colors.white,
+            fontSize: 16,
+            fontWeight: FontWeight.bold,
+          ),
+        ),
+        style: TextButton.styleFrom(
+          padding: const EdgeInsets.symmetric(vertical: 14),
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(14),
+          ),
+        ),
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -276,69 +327,50 @@ class _ProfilePageState extends State<ProfilePage> {
                           child: CircularProgressIndicator(),
                         ),
                       );
-                    } else if (orderState.errorMessage != null) {
-                      return Center(
-                        child: Text(
-                          orderState.errorMessage!,
-                          style: const TextStyle(color: Colors.red),
-                        ),
-                      );
-                    } else if (orderState.orders == null ||
-                        orderState.orders!.isEmpty) {
-                      return const Center(
-                        child: Text("You have no orders yet."),
-                      );
                     }
 
+                    // Show friendly no orders message and a button to place orders
+                    if ((orderState.orders == null || orderState.orders!.isEmpty)) {
+                      if (orderState.errorMessage == null || orderState.errorMessage!.toLowerCase().contains("no orders")) {
+                        return Center(
+                          child: Column(
+                            mainAxisSize: MainAxisSize.min,
+                            children: [
+                              const Text(
+                                "You have no orders yet.",
+                                style: TextStyle(fontSize: 18, fontWeight: FontWeight.w500),
+                              ),
+                              const SizedBox(height: 20),
+                              ElevatedButton(
+                                onPressed: () {
+                                  // Navigate to home or product page to place order
+                                  Navigator.pushNamed(context, '/home');
+                                },
+                                child: const Text('Place Your First Order'),
+                              ),
+                              const SizedBox(height: 30),
+                              _buildLogoutButton(),
+                            ],
+                          ),
+                        );
+                      } else {
+                        // Show actual error message
+                        return Center(
+                          child: Text(
+                            orderState.errorMessage!,
+                            style: const TextStyle(color: Colors.red),
+                          ),
+                        );
+                      }
+                    }
+
+                    // Normal case: show orders list
                     return Column(
                       crossAxisAlignment: CrossAxisAlignment.stretch,
                       children: [
                         ...orderState.orders!.map(_buildOrderCard).toList(),
                         const SizedBox(height: 30),
-                        // 👇 Add the logout button here
-                        Container(
-                          decoration: BoxDecoration(
-                            gradient: const LinearGradient(
-                              colors: [Color(0xFFD9534F), Color(0xFFB02A37)],
-                              begin: Alignment.topLeft,
-                              end: Alignment.bottomRight,
-                            ),
-                            borderRadius: BorderRadius.circular(14),
-                            boxShadow: [
-                              BoxShadow(
-                                color: Colors.black.withOpacity(0.2),
-                                offset: const Offset(0, 6),
-                                blurRadius: 10,
-                              ),
-                            ],
-                          ),
-                          child: TextButton.icon(
-                            onPressed: () {
-                              Navigator.pushReplacement(
-                                context,
-                                MaterialPageRoute(
-                                  builder: (context) => const LoginPage(),
-                                ),
-                              );
-                            },
-                            icon: const Icon(Icons.logout, color: Colors.white),
-                            label: const Text(
-                              'Logout',
-                              style: TextStyle(
-                                color: Colors.white,
-                                fontSize: 16,
-                                fontWeight: FontWeight.bold,
-                              ),
-                            ),
-                            style: TextButton.styleFrom(
-                              padding: const EdgeInsets.symmetric(vertical: 14),
-                              shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(14),
-                              ),
-                            ),
-                          ),
-                        ),
-                        const SizedBox(height: 20),
+                        _buildLogoutButton(),
                       ],
                     );
                   },

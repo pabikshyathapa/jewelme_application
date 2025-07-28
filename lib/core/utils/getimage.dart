@@ -5,6 +5,11 @@ String getBackendImageUrl(String? filepath) {
 
   final sanitizedPath = filepath.replaceAll('\\', '/');
 
-  const baseUrl = 'http://10.0.2.2:5050/'; // ← use local IP if needed
-  return '$baseUrl$sanitizedPath';
+  const baseUrl = "http://192.168.16.102:5050";
+
+  if (!sanitizedPath.startsWith('/')) {
+    return '$baseUrl/$sanitizedPath';
+  } else {
+    return '$baseUrl$sanitizedPath';
+  }
 }
