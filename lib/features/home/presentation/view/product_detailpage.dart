@@ -1,6 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:jewelme_application/features/home/domain/entity/product_entity.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:jewelme_application/core/common/snackbar/my_snack_bar.dart';
 import 'package:jewelme_application/core/utils/getimage.dart';
+import 'package:jewelme_application/core/utils/user_session.dart';
+import 'package:jewelme_application/features/cart/presentation/view_model/cart_event.dart';
+import 'package:jewelme_application/features/cart/presentation/view_model/cart_view_model.dart';
+import 'package:jewelme_application/features/home/domain/entity/product_entity.dart';
+import 'package:jewelme_application/features/wishlist/presenttaion/view/wishlist_button.dart';
 
 class ProductDetailPage extends StatelessWidget {
   final ProductEntity product;
@@ -28,6 +34,12 @@ class ProductDetailPage extends StatelessWidget {
             ),
           ),
         ),
+        actions: [
+          Padding(
+            padding: const EdgeInsets.only(right: 12),
+            child: WishlistButton(product: product),
+          ),
+        ],
       ),
       body: SingleChildScrollView(
         child: Column(
@@ -55,6 +67,14 @@ class ProductDetailPage extends StatelessWidget {
                           offset: const Offset(0, 6),
                         ),
                       ],
+                    ),
+                  )
+                else
+                  const SizedBox(
+                    height: 350,
+                    child: Center(
+                      child: Icon(Icons.image_not_supported,
+                          size: 80, color: Colors.grey),
                     ),
                   ),
               ],
@@ -106,6 +126,51 @@ class ProductDetailPage extends StatelessWidget {
                       ),
                     ),
                   ],
+                ),
+              ),
+            ),
+            const SizedBox(height: 20),
+
+            // Add to Cart Button
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 20),
+              child: SizedBox(
+                width: double.infinity,
+                child: ElevatedButton.icon(
+                  onPressed: () {
+                    final currentUserId = UserSession.instance.userId;
+                    if (currentUserId != null) {
+                      context.read<CartViewModel>().add(
+                            AddToCartEvent(
+                              context: context,
+                              userId: currentUserId,
+                              product: product,
+                              quantity: 1,
+                            ),
+                          );
+                    } else {
+                      showMySnackBar(
+                        context: context,
+                        message: "Please log in first",
+                        color: Colors.red,
+                      );
+                    }
+                  },
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: const Color(0xFFD9534F),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(14),
+                    ),
+                    padding: const EdgeInsets.symmetric(vertical: 14),
+                  ),
+                  icon: const Icon(Icons.shopping_cart_outlined, size: 22),
+                  label: const Text(
+                    "Add to Cart",
+                    style: TextStyle(
+                      fontSize: 16,
+                      fontWeight: FontWeight.w600,
+                    ),
+                  ),
                 ),
               ),
             ),

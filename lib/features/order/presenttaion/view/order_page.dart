@@ -16,6 +16,9 @@ class OrderConfirmationPage extends StatefulWidget {
 class _OrderConfirmationPageState extends State<OrderConfirmationPage> {
   final TextEditingController _locationController = TextEditingController();
 
+  // Add a bool for Cash on Delivery selection (default true)
+  bool _isCashOnDelivery = true;
+
   @override
   void dispose() {
     _locationController.dispose();
@@ -25,13 +28,21 @@ class _OrderConfirmationPageState extends State<OrderConfirmationPage> {
   void _confirmOrder() {
     if (_locationController.text.trim().isEmpty) {
       ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(content: Text("Please enter your location."),backgroundColor: Colors.green,),
+        const SnackBar(
+          content: Text("Please enter your location."),
+          backgroundColor: Colors.green,
+        ),
       );
       return;
     }
 
+    // You can later use _isCashOnDelivery to send order payment type info if needed
+
     ScaffoldMessenger.of(context).showSnackBar(
-      const SnackBar(content: Text("Order Confirmed!"),backgroundColor: Colors.green,),
+      const SnackBar(
+        content: Text("Order Confirmed!"),
+        backgroundColor: Colors.green,
+      ),
     );
 
     Navigator.pushAndRemoveUntil(
@@ -62,6 +73,8 @@ class _OrderConfirmationPageState extends State<OrderConfirmationPage> {
             _buildOrderTotal(),
             const SizedBox(height: 16),
             _buildLocationField(),
+            const SizedBox(height: 16),
+            _buildCashOnDeliverySection(),  // <-- New COD section added here
           ],
         ),
       ),
@@ -76,7 +89,10 @@ class _OrderConfirmationPageState extends State<OrderConfirmationPage> {
             padding: const EdgeInsets.symmetric(vertical: 14),
             shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
           ),
-          child: const Text("Confirm Order", style: TextStyle(fontSize: 16, color: Colors.white)),
+          child: const Text(
+            "Confirm Order",
+            style: TextStyle(fontSize: 16, color: Colors.white),
+          ),
         ),
       ),
     );
@@ -93,7 +109,8 @@ class _OrderConfirmationPageState extends State<OrderConfirmationPage> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text("Order ID: ${widget.order.id}", style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 16)),
+          Text("Order ID: ${widget.order.id}",
+              style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 16)),
           const SizedBox(height: 6),
           Text("Date: $dateFormatted", style: TextStyle(fontSize: 14, color: Colors.red.shade700)),
         ],
@@ -157,11 +174,40 @@ class _OrderConfirmationPageState extends State<OrderConfirmationPage> {
     return TextField(
       controller: _locationController,
       decoration: InputDecoration(
-        labelText: "Delivery Location",
+        labelText: "Delivery Address",
         hintText: "e.g.Baneshwor near Eyeplex",
         filled: true,
         fillColor: Colors.grey.shade100,
         border: OutlineInputBorder(borderRadius: BorderRadius.circular(10)),
+      ),
+    );
+  }
+
+  Widget _buildCashOnDeliverySection() {
+    return Container(
+      padding: const EdgeInsets.all(12),
+      decoration: BoxDecoration(
+        color: Colors.red.shade50,
+        borderRadius: BorderRadius.circular(10),
+        border: Border.all(color: Colors.red.shade100),
+      ),
+      child: Row(
+        children: [
+          Checkbox(
+            value: _isCashOnDelivery,
+            onChanged: (val) {
+              setState(() {
+                _isCashOnDelivery = val ?? true;
+              });
+            },
+            activeColor: Colors.red,
+          ),
+          const SizedBox(width: 8),
+          const Text(
+            "Cash on Delivery",
+            style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600, color: Colors.red),
+          ),
+        ],
       ),
     );
   }
