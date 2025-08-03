@@ -6,7 +6,6 @@ import 'package:jewelme_application/features/home/domain/entity/product_entity.d
 import 'package:jewelme_application/features/wishlist/presenttaion/view_model/wishlist_event.dart';
 import 'package:jewelme_application/features/wishlist/presenttaion/view_model/wishlist_view_model.dart';
 
-
 class WishlistButton extends StatefulWidget {
   final ProductEntity product;
 

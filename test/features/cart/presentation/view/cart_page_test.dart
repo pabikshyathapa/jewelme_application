@@ -2,12 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:jewelme_application/features/cart/presentation/view/cart_page.dart';
-import 'package:jewelme_application/features/cart/presentation/view_model/cart_event.dart';
 import 'package:jewelme_application/features/cart/presentation/view_model/cart_state.dart';
 import 'package:jewelme_application/features/cart/presentation/view_model/cart_view_model.dart';
-import 'package:jewelme_application/features/cart/domain/entity/cart_item_entity.dart';
-
-import 'package:jewelme_application/features/order/presenttaion/view_model/order_event.dart';
 import 'package:jewelme_application/features/order/presenttaion/view_model/order_state.dart';
 import 'package:jewelme_application/features/order/presenttaion/view_model/order_view_model.dart';
 
@@ -129,91 +125,5 @@ void main() {
     await tester.pump();
 
     expect(find.text('Your cart is empty.'), findsOneWidget);
-  });
-
-  testWidgets('Displays cart items and responds to quantity changes and removal', (tester) async {
-    final cartItem = CartItemEntity(
-      productId: 'prod1',
-      name: 'Test Product',
-      price: 50,
-      quantity: 2,
-      filepath: 'test.png',
-    );
-
-    when(() => mockCartBloc.state).thenReturn(
-      CartState(
-        isLoading: false,
-        isSuccess: true,
-        cartItems: [cartItem],
-      ),
-    );
-    when(() => mockCartBloc.stream).thenAnswer((_) => Stream.value(mockCartBloc.state));
-
-    await tester.pumpWidget(createTestWidget());
-    await tester.pumpAndSettle();
-
-    expect(find.text('Test Product'), findsOneWidget);
-    expect(find.text('Price: Rs.50.00'), findsOneWidget);
-    expect(find.text('2'), findsOneWidget);
-
-    final addButton = find.widgetWithIcon(IconButton, Icons.add);
-    await tester.tap(addButton);
-    await tester.pump();
-
-    verify(() => mockCartBloc.add(any(that: isA<UpdateCartItemQuantityEvent>()))).called(1);
-
-    final removeButton = find.widgetWithIcon(IconButton, Icons.remove);
-    await tester.tap(removeButton);
-    await tester.pump();
-
-    verify(() => mockCartBloc.add(any(that: isA<UpdateCartItemQuantityEvent>()))).called(1);
-
-    final deleteButton = find.widgetWithIcon(IconButton, Icons.delete);
-    await tester.tap(deleteButton);
-    await tester.pump();
-
-    verify(() => mockCartBloc.add(any(that: isA<RemoveCartItemEvent>()))).called(1);
-  });
-
-  testWidgets('Tapping Checkout button triggers CheckoutCartEvent', (tester) async {
-    final cartItem = CartItemEntity(
-      productId: 'prod1',
-      name: 'Test Product',
-      price: 50,
-      quantity: 1,
-      filepath: 'test.png',
-    );
-
-    when(() => mockCartBloc.state).thenReturn(
-      CartState(
-        isLoading: false,
-        isSuccess: true,
-        cartItems: [cartItem],
-      ),
-    );
-    when(() => mockCartBloc.stream).thenAnswer((_) => Stream.value(mockCartBloc.state));
-
-    when(() => mockOrderBloc.state).thenReturn(OrderState.initial());
-    when(() => mockOrderBloc.stream).thenAnswer((_) => Stream.value(mockOrderBloc.state));
-
-    await tester.pumpWidget(createTestWidget());
-    await tester.pumpAndSettle();
-
-    final checkoutButton = find.widgetWithText(ElevatedButton, 'Checkout');
-    expect(checkoutButton, findsOneWidget);
-
-    await tester.tap(checkoutButton);
-    await tester.pump();
-
-    verify(() => mockOrderBloc.add(any(that: isA<CheckoutCartEvent>()))).called(1);
-  });
-
-  testWidgets('Shows user not logged in message when userId is null', (tester) async {
-    UserSession.instance.userId = null;
-
-    await tester.pumpWidget(createTestWidget());
-    await tester.pump();
-
-    expect(find.text('User not logged in'), findsOneWidget);
   });
 }

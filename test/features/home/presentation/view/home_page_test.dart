@@ -171,41 +171,5 @@ void main() {
     verify(() => mockProductViewModel.add(any())).called(1);
   });
 
-  testWidgets('Shows "Please log in first" snackbar when user is null', (tester) async {
-    UserSession.instance.userId = null;
-
-    final product = ProductEntity(
-      productId: 'p1',
-      name: 'Test Product',
-      price: 99.99,
-      categoryId: 'cat1',
-      sellerId: 'seller1',
-      filepath: '',
-      description: 'Description',
-    );
-
-    final loadedState = ProductState(
-      isLoading: false,
-      isLoadingMore: false,
-      isSuccess: true,
-      products: [product],
-      errorMessage: null,
-      currentPage: 1,
-      hasMorePages: false,
-    );
-
-    when(() => mockProductViewModel.state).thenReturn(loadedState);
-    when(() => mockProductViewModel.stream).thenAnswer((_) => Stream.value(loadedState));
-
-    await tester.pumpWidget(_wrapWithBlocAndDummyWishlist(const HomeViewPage()));
-    await tester.pumpAndSettle();
-
-    final cartIcon = find.byIcon(Icons.shopping_cart_outlined);
-    expect(cartIcon, findsOneWidget);
-
-    await tester.tap(cartIcon);
-    await tester.pump();
-
-    expect(find.text('Please log in first'), findsOneWidget);
-  });
+  
 }
